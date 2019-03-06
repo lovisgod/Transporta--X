@@ -1,7 +1,7 @@
 {
   "name": "transpora-x",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/api.js",
   "scripts": {
     "build": "babel app -d dist",
     "start": "npm run build && node dist/api.js",
