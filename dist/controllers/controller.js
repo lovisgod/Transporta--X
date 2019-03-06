@@ -9,7 +9,6 @@ var _db = _interopRequireDefault(require("../utils/db"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import { STATUS_CODES } from 'http';
 var signup = function signup(req, res) {
   var user = {
     username: req.body.username,
