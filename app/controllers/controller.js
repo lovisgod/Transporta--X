@@ -75,7 +75,7 @@ export const bookride = (req, res) => {
     [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], (err, result) => {
         if(err){
             console.log(err);
-            return res.status(404).send('Booking not successful not successful'+ '\n'+ err.message);
+            return res.status(404).send( err.message);
         }else{
             pool.query('SELECT location FROM "transporta" WHERE category = $1',
             ['driver'], (err, result) => {
