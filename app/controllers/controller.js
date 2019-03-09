@@ -68,15 +68,14 @@ export const bookride = (req, res) => {
         driver: req.body.driver,
         distance: req.body.distance,
         cost: req.body.cost,
-        rideid: req.body.rideid,
 
     }
-    pool.query(`INSERT INTO "rides"("ridefrom", "rideto", "timeofdep", "noofpassenger", "status", "customer","driver", "distance", "cost", "rideid")
+    pool.query(`INSERT INTO "rides"("ridefrom", "rideto", "timeofdep", "noofpassenger", "status", "customer","driver", "distance", "cost")
     VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
-    [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost, bookDetails.rideid], (err, result) => {
+    [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], (err, result) => {
         if(err){
             console.log(err);
-            return res.status(404).send('Booking not successful not successful');
+            return res.status(404).send('Booking not successful not successful'+ '\n'+ err.message);
         }else{
             pool.query('SELECT location FROM "transporta" WHERE category = $1',
             ['driver'], (err, result) => {
