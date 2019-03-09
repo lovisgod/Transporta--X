@@ -17,5 +17,6 @@ var router = _express.default.Router();
 
 router.post('/signup', controller.signup);
 router.post('/login', controller.login);
+router.post('/bookride', controller.bookride);
 var _default = router;
 exports.default = _default;
