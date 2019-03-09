@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = exports.signup = void 0;
+exports.bookride = exports.login = exports.signup = void 0;
 
 var _db = _interopRequireDefault(require("../utils/db"));
 
@@ -60,3 +60,40 @@ var login = function login(req, res) {
 };
 
 exports.login = login;
+
+var bookride = function bookride(req, res) {
+  var bookDetails = {
+    ridefrom: req.body.ridefrom,
+    rideto: req.body.rideto,
+    timeofdep: req.body.timeofdep,
+    noofpassenger: req.body.noofpassenger,
+    ridestatus: req.body.ridestatus,
+    customer: req.body.customer,
+    driver: req.body.driver,
+    distance: req.body.distance,
+    cost: req.body.cost,
+    rideid: req.body.rideid
+  };
+
+  _db.default.query("INSERT INTO \"rides\"(\"ridefrom\", \"rideto\", \"timeofdep\", \"noofpassenger\", \"status\", \"customer\",\"driver\", \"distance\", \"cost\", \"rideid\")\n    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost, bookDetails.rideid], function (err, result) {
+    if (err) {
+      console.log(err);
+      return res.status(404).send('Booking not successful not successful');
+    } else {
+      _db.default.query('SELECT location FROM "transporta" WHERE category = $1', ['driver'], function (err, result) {
+        if (err) {
+          console.log(err);
+          var errorMessage = {
+            message: 'No user found'
+          };
+          return res.status(404).send(errorMessage);
+        } else {
+          console.log(result);
+          res.status(200).send(result.rows[0]);
+        }
+      });
+    }
+  });
+};
+
+exports.bookride = bookride;
