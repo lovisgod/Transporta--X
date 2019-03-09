@@ -26,6 +26,23 @@ const createTables = () => {
         PHONE_NO    VARCHAR
       )`;
 
+
+      `CREATE TABLE IF NOT EXISTS
+        rides(
+          RIDEFROM   TEXT,
+          RIDETO     TEXT,
+          TIMEOFDEP   VARCHAR,
+          NOOFPASSENGER   INT,
+          STATUS    TEXT,
+          CUSTOMER  TEXT,
+          DRIVER    TEXT,
+          DISTANCE  VARCHAR,
+          COST      VARCHAR,
+          RIDEID    SERIAL PRIMARY KEY        
+        )`;
+
+
+
   pool.query(queryText)
     .then((res) => {
       console.log(res);

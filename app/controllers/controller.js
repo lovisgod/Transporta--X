@@ -56,3 +56,39 @@ export const login = (req, res) => {
 
    
 };
+
+export const bookride = (req, res) => {
+    const bookDetails = {
+        ridefrom: req.body.ridefrom,
+        rideto: req.body.rideto,
+        timeofdep: req.body.timeofdep,
+        noofpassenger: req.body.noofpassenger,
+        ridestatus: req.body.ridestatus,
+        customer: req.body.customer,
+        driver: req.body.driver,
+        distance: req.body.distance,
+        cost: req.body.cost,
+        rideid: req.body.rideid,
+
+    }
+    pool.query(`INSERT INTO "rides"("ridefrom", "rideto", "timeofdep", "noofpassenger", "status", "customer","driver", "distance", "cost", "rideid")
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+    [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost, bookDetails.rideid], (err, result) => {
+        if(err){
+            console.log(err);
+            return res.status(404).send('Booking not successful not successful');
+        }else{
+            pool.query('SELECT location FROM "transporta" WHERE category = $1',
+            ['driver'], (err, result) => {
+                if(err){
+                    console.log(err);
+                    const errorMessage = {message:'No user found'};
+                    return res.status(404).send(errorMessage);
+                }else{
+                    console.log(result);
+                    res.status(200).send(result.rows[0]);
+                }
+            });
+        }
+    });
+}
