@@ -74,7 +74,7 @@ var bookride = function bookride(req, res) {
     cost: req.body.cost
   };
 
-  _db.default.query("INSERT INTO \"rides\"(\"ridefrom\", \"rideto\", \"timeofdep\", \"noofpassenger\", \"status\", \"customer\",\"driver\", \"distance\", \"cost\")\n    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], function (err, result) {
+  _db.default.query("INSERT INTO \"rides\"(\"ridefrom\", \"rideto\", \"timeofdep\", \"noofpassenger\", \"status\", \"customer\",\"driver\", \"distance\", \"cost\")\n    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)", [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], function (err, result) {
     if (err) {
       console.log(err);
       return res.status(404).send(err.message);
@@ -83,7 +83,8 @@ var bookride = function bookride(req, res) {
         if (err) {
           console.log(err);
           var errorMessage = {
-            message: 'No user found'
+            message: 'No user found',
+            theError: err.message
           };
           return res.status(404).send(errorMessage);
         } else {
