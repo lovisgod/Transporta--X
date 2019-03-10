@@ -89,7 +89,7 @@ var bookride = function bookride(req, res) {
           return res.status(404).send(errorMessage);
         } else {
           console.log(result);
-          res.status(200).send(result);
+          res.status(200).send(result.rows);
         }
       });
     }
