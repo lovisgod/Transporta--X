@@ -71,14 +71,13 @@ var bookride = function bookride(req, res) {
     customer: req.body.customer,
     driver: req.body.driver,
     distance: req.body.distance,
-    cost: req.body.cost,
-    rideid: req.body.rideid
+    cost: req.body.cost
   };
 
-  _db.default.query("INSERT INTO \"rides\"(\"ridefrom\", \"rideto\", \"timeofdep\", \"noofpassenger\", \"status\", \"customer\",\"driver\", \"distance\", \"cost\", \"rideid\")\n    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost, bookDetails.rideid], function (err, result) {
+  _db.default.query("INSERT INTO \"rides\"(\"ridefrom\", \"rideto\", \"timeofdep\", \"noofpassenger\", \"status\", \"customer\",\"driver\", \"distance\", \"cost\")\n    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)", [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], function (err, result) {
     if (err) {
       console.log(err);
-      return res.status(404).send('Booking not successful not successful');
+      return res.status(404).send(err.message);
     } else {
       _db.default.query('SELECT location FROM "transporta" WHERE category = $1', ['driver'], function (err, result) {
         if (err) {
