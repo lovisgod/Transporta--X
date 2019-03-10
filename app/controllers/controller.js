@@ -71,7 +71,7 @@ export const bookride = (req, res) => {
 
     }
     pool.query(`INSERT INTO "rides"("ridefrom", "rideto", "timeofdep", "noofpassenger", "status", "customer","driver", "distance", "cost")
-    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`,
+    VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
     [bookDetails.ridefrom, bookDetails.rideto, bookDetails.timeofdep, bookDetails.noofpassenger, bookDetails.ridestatus, bookDetails.customer, bookDetails.driver, bookDetails.distance, bookDetails.cost], (err, result) => {
         if(err){
             console.log(err);
@@ -81,7 +81,9 @@ export const bookride = (req, res) => {
             ['driver'], (err, result) => {
                 if(err){
                     console.log(err);
-                    const errorMessage = {message:'No user found'};
+                    const errorMessage = {message:'No user found',
+                                            theError: err.message,
+                                            };
                     return res.status(404).send(errorMessage);
                 }else{
                     console.log(result);
