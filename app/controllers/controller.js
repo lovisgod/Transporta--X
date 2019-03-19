@@ -77,7 +77,7 @@ export const bookride = (req, res) => {
             console.log(err);
             return res.status(404).send( err.message);
         }else{
-            pool.query('SELECT location FROM "transporta" WHERE category = $1',
+            pool.query('SELECT * FROM "transporta" WHERE category = $1',
             ['driver'], (err, result) => {
                 if(err){
                     console.log(err);
@@ -93,3 +93,4 @@ export const bookride = (req, res) => {
         }
     });
 }
+
